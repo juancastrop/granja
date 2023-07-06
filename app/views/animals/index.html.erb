@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Animals</h1>
+
+<div id="animals">
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Farmer</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @animals.each do |animal|%>
+        <tr>
+            <td><%= animal.id %></td>
+            <td><%= animal.nombre %></td>
+            <td><%= animal.farmer.name%></td>
+            <td>
+            <%= link_to "Show", animal, class:"btn btn-outline-primary bt-sm" %>
+            <%= link_to "Edit", edit_animal_path(animal), class:"btn btn-outline-success" %>
+            <%= button_to "Destroy", animal, method: :delete, class:"btn btn-outline-danger" %>
+            </td>
+        </tr>
+    <%end%>
+    </tbody>
+</table>
+<div id="animals">
+

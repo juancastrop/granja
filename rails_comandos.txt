@@ -1,0 +1,141 @@
+
+
+
+-- verificar estar en la terminal con ubuntu -> inforcap@ubuntu:~$
+ssh -p 2222 inforcap@127.0.0.1
+
+-- crear un proyecto rails
+rails new twiter -d postgresql
+o
+rails new demo1 --database postgresql 
+
+--crear un proyecto tipo api
+rails new crm_vendedores_api -d postgresql --api
+
+-- desplegar el servidor, debemos estar en la carpeta del proyecto 
+cd demo1
+--(alternativo) modificamos el archivo config/database.yml en  development y test
+  username: mijail
+  password: admin1234
+
+-- ejecutar creacion de base datos
+rails db:create
+rails db -> para acceder desde la terminal a la base de datos
+
+-- desplegamos servidor
+rails s
+-- probar en el browser 
+http://127.0.0.1:3000
+
+-- actualizar o instalar una gema, se ejecuta dentro del proyecto 
+bundle install o bundle
+*problemas con rbenv
+rbenv install 3.1.2
+
+--crear un controlador
+  -- welcome = welcome_controller.rb y carpeta llamada welcome se crean
+  -- index -> metodo en el controlador y es una pagina llamada index.html.erb
+  rails g controller post index show create delete update
+
+  ***genera modelo, migracion y test
+rails g model Farmer nombre edad 
+  ***genera una migracion para crear la relacion de dos tablas de la base de datos
+rails g migration AddFarmersToAnimals farmer:references
+
+--SCAFFOLD 
+  *rails g scaffold animal nombre 
+  nos crea el CRUD, no genera seed
+
+  crea el archivo migrate que crea la tabla
+
+  *rails db:migrate
+  creacion o modificacion de una tabla
+
+  *rails db:migrate:status
+  saber cuales son las migraciones ejecutadas
+
+  * ejecutar migracion, creacion o modificación de una tabla 
+rails db:migrate
+
+* saber cuales son las migraciones ejecutadas
+rails db:migrate:status
+
+* eliminar la base datos con todos los datos
+rails db:drop
+
+* reiniciar la base datos y las migraciones
+rails db:reset
+
+* deshacer la ultima migracion
+rails db:rollback
+
+* deshacer una cantidad especifica de migraciones
+rails db:rollback STEP=2
+
+*agregar columna a tabla existente
+rails g migration addColumnToLibro paginas:integer
+
+*ingresar a ruby y poder manipular objetos 
+rails c
+
+*destruir algo (modelo,controlador)
+rails d 
+*ayudda para saber los comandos 
+rails -T db
+
+
+
+
+-->trabajamos en app
+
+  assets/image
+  assets/CSS
+  controllers/
+  javascript/
+  model/
+
+-->trabajamos en config
+  routes.rb  -->realiza redirecciones, controller/metodo
+  database.yml 
+
+-->trabajamos en db
+  migration/  -->las migraciones sirven para crear tablas en base de datos
+  seed.rb  -->precargar data en las tablas
+
+cd prueba-rails
+bundle
+rbenv install 3.1.2
+bundle
+database.yml- >
+                development:
+                pool: 5
+                adapter: postgresql
+                database: prueba-045
+
+rails db:create
+rails g scaffold post title
+rails db:migrate
+opcional-> modificar ruta para: root "posts#index" 
+rails s -> solo para probar
+agregar en config/environment/development.rb en linea 5 el nombre asignado Domains por railway:
+        config.hosts << "rails-production-613f.up.railway.app"
+
+git add .
+git commit -m "mensaje"
+git pushcd..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+sudo apt-get update
+sudo apt-get upgrade -y
+cd
+sudo su locale-gen en_US.UTF-8
+update-locale LANG=en_US.UTF-8
+
+sudo su postgres -c psql
+UPDATE pg_database SET datallowconn = TRUE WHERE datname = 'template0';
+\c template0
+UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
+DROP DATABASE template1;
+CREATE DATABASE template1 ENCODING = 'utf8' TEMPLATE = template0 LC_CTYPE = 'en_US.utf8' LC_COLLATE = 'en_US.utf8';
+UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';
+\c template1
+UPDATE pg_database SET datallowconn = FALSE WHERE datname = 'template0';
+\l 
+\q
+\du *mostrar las bases de datos
+
+exit
+
+create user juan with password 'admin1234.';
+create database juan owner juan;
+alter user juan superuser createrole createdb replication;
+
+*****Instalamos dependencias********
+sudo apt install curl
+
+curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+sudo apt-get update
+
+sudo apt-get install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn
+
+Instalamos Rbenv
+cd
+
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+exec $SHELL
+
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+
+exec $SHELL
+
+Instalamos Ruby
+rbenv install 3.1.1
+
+rbenv global 3.1.1
+
+gem install bundler
+
+rbenv rehash
+
+Instalamos Rails
+gem install rails
+
+rbenv rehash
+
+Instalamos Postgresql
+sudo apt install postgresql libpq-dev
+
+sudo systemctl start postgresql.service
+
+sudo systemctl enable postgresql.service
+
+sudo -u postgres createuser tuusuariodeubuntu -s

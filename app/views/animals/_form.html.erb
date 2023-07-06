@@ -1,0 +1,32 @@
+<%= form_with(model: animal) do |form| %>
+  <% if animal.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(animal.errors.count, "error") %> prohibited this animal from being saved:</h2>
+
+      <ul>
+        <% animal.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+  <div>
+  <label for="granjeros">Choose a Granjero:</label>
+
+<select name="animal[farmer_id]" id="">
+  <option value="-1"selected>seleccione un granjero</option>
+    <% @farmars.each do |farmer| %>
+    <option value="<%= farmer.id %>"> <%= farmer.nombre %></option>
+  <% end %>
+ </select>
+<div/>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
